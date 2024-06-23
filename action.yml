@@ -1,0 +1,21 @@
+name: Docker tag list generator
+description: Generates a list of Docker tags to push
+
+inputs:
+  roots:
+    description: A list of image roots you want to push to. For example `docker.io/example/example-repo,ghcr.io/example/example-repo`. You can add spaces and newlines if you want.
+    required: true
+  tags:
+    description: A list (strings, seperated by newlines) of static tags you want to push to each registry, for example `static`.
+    required: false
+  hierarchical_version:
+    description: A dot-seperated version number to generate hierarchical tags for, for example `1.2.0`. For your convience, this will strip a leading `v`. So if you're running this on a tag named `v1.2.0`, you can pass `github.ref_name` directly into this.
+    required: false
+
+outputs:
+  tags:
+    description: A comma-seperated list of tags to pass into `docker/build-push-action`.
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
