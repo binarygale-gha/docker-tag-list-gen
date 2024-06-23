@@ -42,6 +42,11 @@ jobs:
             ghcr.io/${{ github.repository }}
           tags: latest
           hierarchical_version: ${{ github.ref_name }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.tag_list.outputs.tags }}
 ```
 
 If run on a tag named `v1.2.3` in an repo `example/foobar`, this would push:
